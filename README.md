@@ -59,10 +59,10 @@ Tabel ini membedakan **kebutuhan host** pada 14 LAN sesuai soal dengan kapasitas
 | L6 - UTARA_PELABUHAN | Link | 2 | 0 | 4 | 2 | 30 | 4 | 2 |
 | Link R-PUSAT - R-ISP | Link | 2 | 0 | 4 | 2 | 30 | 4 | 2 |
 | Server Internet | R-ISP | 1 | 1 | 4 | 8 | 24 | 256 | 254 |
-| Tunnel GRE PUSATâ€“PELABUHAN | Link | 2 | 0 | 4 | 2 | 30 | 4 | 2 |
+| Tunnel GRE PUSAT–PELABUHAN | Link | 2 | 0 | 4 | 2 | 30 | 4 | 2 |
 | **Total ukuran blok** | | | | | | | **62.016** | |
 
-Subnet tambahan: Server Internet `8.8.8.0/24` menyediakan 254 host usable; WAN `203.0.113.4/30`, link L1â€“L6, dan GRE `192.168.1.0/30` masing-masing menyediakan 2 host usable.
+Subnet tambahan: Server Internet `8.8.8.0/24` menyediakan 254 host usable; WAN `203.0.113.4/30`, link L1–L6, dan GRE `192.168.1.0/30` masing-masing menyediakan 2 host usable.
 
 Angka **62.016** di atas adalah jumlah ukuran blok subnet (termasuk network dan broadcast). Total **42.158** pada tabel rute adalah jumlah kebutuhan alamat yang dihitung dari host + gateway + network + broadcast untuk setiap subnet, sehingga kedua angka mengukur hal yang berbeda.
 
@@ -74,7 +74,7 @@ Angka **62.016** di atas adalah jumlah ukuran blok subnet (termasuk network dan 
 #### Deskripsi
 
 * Bangun topologi di Cisco Packet Tracer sesuai skema yang kalian pilih (VLSM atau CIDR).
-    * Hubungan antar-router (backbone, link L1â€“L6), termasuk R-ISP dan server 8.8.8.8, wajib mengikuti Gambar 1.
+    * Hubungan antar-router (backbone, link L1–L6), termasuk R-ISP dan server 8.8.8.8, wajib mengikuti Gambar 1.
     * Desain setiap lokasi silakan dirancang sendiri, mencakup susunan switch, jenis perangkat yang dipasang (PC, perangkat mobile, atau server), media link (kabel atau wireless), serta penambahan port pada router. Tuliskan pertimbangan dan alasannya dalam dokumentasi.
     * Cukup pasang 1 perangkat perwakilan di setiap LAN. Perhitungan subnet tetap menggunakan jumlah host penuh.
 * Ganti nama bawaan setiap perangkat (misalnya Router0, Switch1, PC2) dengan nama yang menunjukkan tempatnya, seperti R-PUSAT, SW-BALAIKOTA, atau PC-CCTV-KOTA.
@@ -90,9 +90,9 @@ Pada topologi jaringan yang kami bangun menggunakan Cisco Packet Tracer, kami me
 Susunan switch dan jenis perangkat tiap lokasi:
 
 * **ISP & Internet**: R-ISP tersambung ke SW-ISP, lalu SW-ISP ke SVR-INTERNET (8.8.8.8/24, gateway 8.8.8.1 di R-ISP). Server internet direpresentasikan satu perangkat perwakilan sesuai ketentuan soal.
-* **Balai Kota**: dua LAN â€” LAN Pegawai Balai Kota (10.8.224.0/21, 2046 host) dengan perwakilan PC kabel, dan LAN Server Balai Kota (10.8.241.0/27, 30 host) dengan perwakilan server yang menampung layanan aplikasi kota cerdas.
+* **Balai Kota**: dua LAN — LAN Pegawai Balai Kota (10.8.224.0/21, 2046 host) dengan perwakilan PC kabel, dan LAN Server Balai Kota (10.8.241.0/27, 30 host) dengan perwakilan server yang menampung layanan aplikasi kota cerdas.
 * **Data Center**: LAN Server & Storage DC (10.8.239.0/24) dengan perwakilan server, dan LAN CCTV Kota (10.8.96.0/19) dengan perwakilan PC.
-* **Barat / Utara / Timur / Selatan**: masing-masing dua LAN â€” satu LAN layanan kabel (Puskesmas & Sekolah 10.8.238.0/24, Sensor Lalu Lintas Utara 10.8.236.0/23, Sensor Banjir Timur 10.8.232.0/22, PJU Pintar Selatan 10.8.240.128/25) dengan perwakilan PC, dan satu LAN WiFi Publik (10.8.192.0/19, 10.8.0.0/18, 10.8.128.0/19, 10.8.64.0/19) dengan Access Point dan perwakilan PC ber-adaptor wireless.
+* **Barat / Utara / Timur / Selatan**: masing-masing dua LAN — satu LAN layanan kabel (Puskesmas & Sekolah 10.8.238.0/24, Sensor Lalu Lintas Utara 10.8.236.0/23, Sensor Banjir Timur 10.8.232.0/22, PJU Pintar Selatan 10.8.240.128/25) dengan perwakilan PC, dan satu LAN WiFi Publik (10.8.192.0/19, 10.8.0.0/18, 10.8.128.0/19, 10.8.64.0/19) dengan Access Point dan perwakilan PC ber-adaptor wireless.
 * **Pelabuhan**: LAN SCADA Pelabuhan (10.8.160.0/19) dan LAN Kantor Pelabuhan (10.8.240.0/25), keduanya perwakilan PC kabel karena perangkat SCADA dan kantor pelabuhan bersifat tetap.
 
 **Alasan pemilihan:**
@@ -105,10 +105,10 @@ Susunan switch dan jenis perangkat tiap lokasi:
 **Penambahan port pada router:**
 
 * Router Cisco 2811 bawaan hanya memiliki 2 port FastEthernet, sedangkan kebutuhan tiap router lebih besar, sehingga dipasang modul tambahan.
-* **R-PUSAT** membutuhkan 8 interface fisik: uplink ke R-ISP (203.0.113.4/30), 5 link backbone ke R-DC/R-BARAT/R-UTARA/R-TIMUR/R-SELATAN (L1â€“L5, masing-masing /30), dan 2 LAN Balai Kota. Tunnel GRE ke R-PELABUHAN (192.168.1.0/30) adalah interface logis di atas jalur underlay. Modul dipasang untuk menyediakan port `Ethernet0/0/0`â€“`Ethernet0/3/0` dan `FastEthernet1/0`â€“`FastEthernet1/1`.
-* **R-UTARA** membutuhkan 4 interface: link L2, link L6 ke R-PELABUHAN, dan 2 LAN-nya â€” port `FastEthernet1/0` dan `FastEthernet1/1` ditambahkan lewat modul.
-* Router lain (R-DC, R-BARAT, R-TIMUR, R-SELATAN, R-PELABUHAN) masing-masing membutuhkan 3 interface: 1â€“2 link backbone dan LAN-nya, dengan penambahan port serupa.
-* Media backbone antar-router memakai kabel **crossover** karena menghubungkan perangkat sejenis (routerâ€“router), sedangkan koneksi router/PC/server ke switch memakai kabel **straight-through** sesuai aturan pin MDI/MDI-X.
+* **R-PUSAT** membutuhkan 8 interface fisik: uplink ke R-ISP (203.0.113.4/30), 5 link backbone ke R-DC/R-BARAT/R-UTARA/R-TIMUR/R-SELATAN (L1–L5, masing-masing /30), dan 2 LAN Balai Kota. Tunnel GRE ke R-PELABUHAN (192.168.1.0/30) adalah interface logis di atas jalur underlay. Modul dipasang untuk menyediakan port `Ethernet0/0/0`–`Ethernet0/3/0` dan `FastEthernet1/0`–`FastEthernet1/1`.
+* **R-UTARA** membutuhkan 4 interface: link L2, link L6 ke R-PELABUHAN, dan 2 LAN-nya — port `FastEthernet1/0` dan `FastEthernet1/1` ditambahkan lewat modul.
+* Router lain (R-DC, R-BARAT, R-TIMUR, R-SELATAN, R-PELABUHAN) masing-masing membutuhkan 3 interface: 1–2 link backbone dan LAN-nya, dengan penambahan port serupa.
+* Media backbone antar-router memakai kabel **crossover** karena menghubungkan perangkat sejenis (router–router), sedangkan koneksi router/PC/server ke switch memakai kabel **straight-through** sesuai aturan pin MDI/MDI-X.
 
 ### 2 - Tabel Subnetting
 
@@ -149,8 +149,8 @@ Untuk melihat proses subnetting dengan lebih lengkap, silakan melihat file **"Ta
 | A22 | R-UTARA > R-PELABUHAN (L6) | 4 | /30 |
 | A23 | R-PUSAT > R-PELABUHAN (Tunnel GRE) | 4 | /30 |
 | A24 | R-DC > R-UTARA (L7 cadangan) | 4 | /30 |
-| A25â€“A28 | R-PELABUHAN > R-TIMUR > R-SELATAN > R-BARAT > R-DC (L8â€“L11) | 16 | 4 x /30 |
-| **Total kebutuhan alamat** | | **42.178** | â€” |
+| A25–A28 | R-PELABUHAN > R-TIMUR > R-SELATAN > R-BARAT > R-DC (L8–L11) | 16 | 4 x /30 |
+| **Total kebutuhan alamat** | | **42.178** | — |
 
 Catatan: kolom `Jumlah IP` mengikuti kolom `Kebutuhan alamat` pada tabel VLSM: kebutuhan host LAN ditambah 3 alamat (gateway, network ID, dan broadcast); server internet dan setiap subnet `/30` bernilai 4 alamat. Prefix tetap menunjukkan alokasi VLSM. Blok internal berada dalam `10.8.0.0/16`, tetapi `/16` bukan netmask gabungan untuk subnet WAN dan server internet.
 
@@ -158,31 +158,31 @@ Catatan: kolom `Jumlah IP` mengikuti kolom `Kebutuhan alamat` pada tabel VLSM: k
 
 | Subnet | Prefix (angka) | Ukuran blok | Offset | Network | Mask | Prefix | Range host | Broadcast | Gateway |
 |---|---:|---:|---:|---|---|---|---|---|---|
-| WiFi Publik Utara | 18 | 16384 | 0 | 10.8.0.0 | 255.255.192.0 | /18 | 10.8.0.1 â€“ 10.8.63.254 | 10.8.63.255 | 10.8.0.1 |
-| WiFi Publik Selatan | 19 | 8192 | 16384 | 10.8.64.0 | 255.255.224.0 | /19 | 10.8.64.1 â€“ 10.8.95.254 | 10.8.95.255 | 10.8.64.1 |
-| CCTV Kota | 19 | 8192 | 24576 | 10.8.96.0 | 255.255.224.0 | /19 | 10.8.96.1 â€“ 10.8.127.254 | 10.8.127.255 | 10.8.96.1 |
-| WiFi Publik Timur | 19 | 8192 | 32768 | 10.8.128.0 | 255.255.224.0 | /19 | 10.8.128.1 â€“ 10.8.159.254 | 10.8.159.255 | 10.8.128.1 |
-| Sensor dan SCADA Pelabuhan | 19 | 8192 | 40960 | 10.8.160.0 | 255.255.224.0 | /19 | 10.8.160.1 â€“ 10.8.191.254 | 10.8.191.255 | 10.8.160.1 |
-| WiFi Publik Barat | 19 | 8192 | 49152 | 10.8.192.0 | 255.255.224.0 | /19 | 10.8.192.1 â€“ 10.8.223.254 | 10.8.223.255 | 10.8.192.1 |
-| Pegawai Balai Kota | 21 | 2048 | 57344 | 10.8.224.0 | 255.255.248.0 | /21 | 10.8.224.1 â€“ 10.8.231.254 | 10.8.231.255 | 10.8.224.1 |
-| Sensor Banjir Timur | 22 | 1024 | 59392 | 10.8.232.0 | 255.255.252.0 | /22 | 10.8.232.1 â€“ 10.8.235.254 | 10.8.235.255 | 10.8.232.1 |
-| Sensor Lalu Lintas Utara | 23 | 512 | 60416 | 10.8.236.0 | 255.255.254.0 | /23 | 10.8.236.1 â€“ 10.8.237.254 | 10.8.237.255 | 10.8.236.1 |
-| Puskesmas dan Sekolah Barat | 24 | 256 | 60928 | 10.8.238.0 | 255.255.255.0 | /24 | 10.8.238.1 â€“ 10.8.238.254 | 10.8.238.255 | 10.8.238.1 |
-| Server dan Storage DC | 24 | 256 | 61184 | 10.8.239.0 | 255.255.255.0 | /24 | 10.8.239.1 â€“ 10.8.239.254 | 10.8.239.255 | 10.8.239.1 |
-| Kantor Pelabuhan | 25 | 128 | 61440 | 10.8.240.0 | 255.255.255.128 | /25 | 10.8.240.1 â€“ 10.8.240.126 | 10.8.240.127 | 10.8.240.1 |
-| PJU Pintar Selatan | 25 | 128 | 61568 | 10.8.240.128 | 255.255.255.128 | /25 | 10.8.240.129 â€“ 10.8.240.254 | 10.8.240.255 | 10.8.240.129 |
-| Server Balai Kota | 27 | 32 | 61696 | 10.8.241.0 | 255.255.255.224 | /27 | 10.8.241.1 â€“ 10.8.241.30 | 10.8.241.31 | 10.8.241.1 |
-| L1 - PUSAT_DC | 30 | 4 | 61728 | 10.8.241.32 | 255.255.255.252 | /30 | 10.8.241.33 â€“ 10.8.241.34 | 10.8.241.35 | â€” |
-| L2 - PUSAT_UTARA | 30 | 4 | 61732 | 10.8.241.36 | 255.255.255.252 | /30 | 10.8.241.37 â€“ 10.8.241.38 | 10.8.241.39 | â€” |
-| L3 - PUSAT_SELATAN | 30 | 4 | 61736 | 10.8.241.40 | 255.255.255.252 | /30 | 10.8.241.41 â€“ 10.8.241.42 | 10.8.241.43 | â€” |
-| L4 - PUSAT_TIMUR | 30 | 4 | 61740 | 10.8.241.44 | 255.255.255.252 | /30 | 10.8.241.45 â€“ 10.8.241.46 | 10.8.241.47 | â€” |
-| L5 - PUSAT_BARAT | 30 | 4 | 61744 | 10.8.241.48 | 255.255.255.252 | /30 | 10.8.241.49 â€“ 10.8.241.50 | 10.8.241.51 | â€” |
-| L6 - UTARA_PELABUHAN | 30 | 4 | 61748 | 10.8.241.52 | 255.255.255.252 | /30 | 10.8.241.53 â€“ 10.8.241.54 | 10.8.241.55 | â€” |
-| L7 - DC_UTARA cadangan | 30 | 4 | 61756 | 10.8.241.60 | 255.255.255.252 | /30 | 10.8.241.61 â€“ 10.8.241.62 | 10.8.241.63 | â€” |
-| L8 - PELABUHAN_TIMUR | 30 | 4 | 61760 | 10.8.241.64 | 255.255.255.252 | /30 | 10.8.241.65 â€“ 10.8.241.66 | 10.8.241.67 | â€” |
-| L9 - TIMUR_SELATAN | 30 | 4 | 61764 | 10.8.241.68 | 255.255.255.252 | /30 | 10.8.241.69 â€“ 10.8.241.70 | 10.8.241.71 | â€” |
-| L10 - SELATAN_BARAT | 30 | 4 | 61768 | 10.8.241.72 | 255.255.255.252 | /30 | 10.8.241.73 â€“ 10.8.241.74 | 10.8.241.75 | â€” |
-| L11 - BARAT_DC | 30 | 4 | 61772 | 10.8.241.76 | 255.255.255.252 | /30 | 10.8.241.77 â€“ 10.8.241.78 | 10.8.241.79 | â€” |
+| WiFi Publik Utara | 18 | 16384 | 0 | 10.8.0.0 | 255.255.192.0 | /18 | 10.8.0.1 – 10.8.63.254 | 10.8.63.255 | 10.8.0.1 |
+| WiFi Publik Selatan | 19 | 8192 | 16384 | 10.8.64.0 | 255.255.224.0 | /19 | 10.8.64.1 – 10.8.95.254 | 10.8.95.255 | 10.8.64.1 |
+| CCTV Kota | 19 | 8192 | 24576 | 10.8.96.0 | 255.255.224.0 | /19 | 10.8.96.1 – 10.8.127.254 | 10.8.127.255 | 10.8.96.1 |
+| WiFi Publik Timur | 19 | 8192 | 32768 | 10.8.128.0 | 255.255.224.0 | /19 | 10.8.128.1 – 10.8.159.254 | 10.8.159.255 | 10.8.128.1 |
+| Sensor dan SCADA Pelabuhan | 19 | 8192 | 40960 | 10.8.160.0 | 255.255.224.0 | /19 | 10.8.160.1 – 10.8.191.254 | 10.8.191.255 | 10.8.160.1 |
+| WiFi Publik Barat | 19 | 8192 | 49152 | 10.8.192.0 | 255.255.224.0 | /19 | 10.8.192.1 – 10.8.223.254 | 10.8.223.255 | 10.8.192.1 |
+| Pegawai Balai Kota | 21 | 2048 | 57344 | 10.8.224.0 | 255.255.248.0 | /21 | 10.8.224.1 – 10.8.231.254 | 10.8.231.255 | 10.8.224.1 |
+| Sensor Banjir Timur | 22 | 1024 | 59392 | 10.8.232.0 | 255.255.252.0 | /22 | 10.8.232.1 – 10.8.235.254 | 10.8.235.255 | 10.8.232.1 |
+| Sensor Lalu Lintas Utara | 23 | 512 | 60416 | 10.8.236.0 | 255.255.254.0 | /23 | 10.8.236.1 – 10.8.237.254 | 10.8.237.255 | 10.8.236.1 |
+| Puskesmas dan Sekolah Barat | 24 | 256 | 60928 | 10.8.238.0 | 255.255.255.0 | /24 | 10.8.238.1 – 10.8.238.254 | 10.8.238.255 | 10.8.238.1 |
+| Server dan Storage DC | 24 | 256 | 61184 | 10.8.239.0 | 255.255.255.0 | /24 | 10.8.239.1 – 10.8.239.254 | 10.8.239.255 | 10.8.239.1 |
+| Kantor Pelabuhan | 25 | 128 | 61440 | 10.8.240.0 | 255.255.255.128 | /25 | 10.8.240.1 – 10.8.240.126 | 10.8.240.127 | 10.8.240.1 |
+| PJU Pintar Selatan | 25 | 128 | 61568 | 10.8.240.128 | 255.255.255.128 | /25 | 10.8.240.129 – 10.8.240.254 | 10.8.240.255 | 10.8.240.129 |
+| Server Balai Kota | 27 | 32 | 61696 | 10.8.241.0 | 255.255.255.224 | /27 | 10.8.241.1 – 10.8.241.30 | 10.8.241.31 | 10.8.241.1 |
+| L1 - PUSAT_DC | 30 | 4 | 61728 | 10.8.241.32 | 255.255.255.252 | /30 | 10.8.241.33 – 10.8.241.34 | 10.8.241.35 | — |
+| L2 - PUSAT_UTARA | 30 | 4 | 61732 | 10.8.241.36 | 255.255.255.252 | /30 | 10.8.241.37 – 10.8.241.38 | 10.8.241.39 | — |
+| L3 - PUSAT_SELATAN | 30 | 4 | 61736 | 10.8.241.40 | 255.255.255.252 | /30 | 10.8.241.41 – 10.8.241.42 | 10.8.241.43 | — |
+| L4 - PUSAT_TIMUR | 30 | 4 | 61740 | 10.8.241.44 | 255.255.255.252 | /30 | 10.8.241.45 – 10.8.241.46 | 10.8.241.47 | — |
+| L5 - PUSAT_BARAT | 30 | 4 | 61744 | 10.8.241.48 | 255.255.255.252 | /30 | 10.8.241.49 – 10.8.241.50 | 10.8.241.51 | — |
+| L6 - UTARA_PELABUHAN | 30 | 4 | 61748 | 10.8.241.52 | 255.255.255.252 | /30 | 10.8.241.53 – 10.8.241.54 | 10.8.241.55 | — |
+| L7 - DC_UTARA cadangan | 30 | 4 | 61756 | 10.8.241.60 | 255.255.255.252 | /30 | 10.8.241.61 – 10.8.241.62 | 10.8.241.63 | — |
+| L8 - PELABUHAN_TIMUR | 30 | 4 | 61760 | 10.8.241.64 | 255.255.255.252 | /30 | 10.8.241.65 – 10.8.241.66 | 10.8.241.67 | — |
+| L9 - TIMUR_SELATAN | 30 | 4 | 61764 | 10.8.241.68 | 255.255.255.252 | /30 | 10.8.241.69 – 10.8.241.70 | 10.8.241.71 | — |
+| L10 - SELATAN_BARAT | 30 | 4 | 61768 | 10.8.241.72 | 255.255.255.252 | /30 | 10.8.241.73 – 10.8.241.74 | 10.8.241.75 | — |
+| L11 - BARAT_DC | 30 | 4 | 61772 | 10.8.241.76 | 255.255.255.252 | /30 | 10.8.241.77 – 10.8.241.78 | 10.8.241.79 | — |
 
 #### CIDR - Penggabungan
 
@@ -235,29 +235,29 @@ Catatan: kolom `Jumlah IP` mengikuti kolom `Kebutuhan alamat` pada tabel VLSM: k
 
 | Subnet | Prefix (angka) | Ukuran blok | Offset | Network | Mask | Prefix | Range host | Broadcast | Gateway |
 |---|---:|---:|---:|---|---|---|---|---|---|
-| Pegawai Balai Kota (A1) | 21 | 2048 | 0 | 10.8.0.0 | 255.255.248.0 | /21 | 10.8.0.1 â€“ 10.8.7.254 | 10.8.7.255 | 10.8.0.1 |
-| Server Balai Kota (A2) | 27 | 32 | 2048 | 10.8.8.0 | 255.255.255.224 | /27 | 10.8.8.1 â€“ 10.8.8.30 | 10.8.8.31 | 10.8.8.1 |
-| L1 - PUSAT_DC (A17) | 30 | 4 | 4096 | 10.8.16.0 | 255.255.255.252 | /30 | 10.8.16.1 â€“ 10.8.16.2 | 10.8.16.3 | â€” |
-| L5 - PUSAT_BARAT (A18) | 30 | 4 | 4100 | 10.8.16.4 | 255.255.255.252 | /30 | 10.8.16.5 â€“ 10.8.16.6 | 10.8.16.7 | â€” |
-| L2 - PUSAT_UTARA (A19) | 30 | 4 | 4104 | 10.8.16.8 | 255.255.255.252 | /30 | 10.8.16.9 â€“ 10.8.16.10 | 10.8.16.11 | â€” |
-| L4 - PUSAT_TIMUR (A20) | 30 | 4 | 4108 | 10.8.16.12 | 255.255.255.252 | /30 | 10.8.16.13 â€“ 10.8.16.14 | 10.8.16.15 | â€” |
-| L3 - PUSAT_SELATAN (A21) | 30 | 4 | 4112 | 10.8.16.16 | 255.255.255.252 | /30 | 10.8.16.17 â€“ 10.8.16.18 | 10.8.16.19 | â€” |
-| L6 - UTARA_PELABUHAN (A22) | 30 | 4 | 4116 | 10.8.16.20 | 255.255.255.252 | /30 | 10.8.16.21 â€“ 10.8.16.22 | 10.8.16.23 | â€” |
-| CCTV Kota (A3) | 19 | 8192 | 65536 | 10.9.0.0 | 255.255.224.0 | /19 | 10.9.0.1 â€“ 10.9.31.254 | 10.9.31.255 | 10.9.0.1 |
-| Server dan Storage DC (A4) | 24 | 256 | 73728 | 10.9.32.0 | 255.255.255.0 | /24 | 10.9.32.1 â€“ 10.9.32.254 | 10.9.32.255 | 10.9.32.1 |
-| WiFi Publik Barat (A5) | 19 | 8192 | 81920 | 10.9.64.0 | 255.255.224.0 | /19 | 10.9.64.1 â€“ 10.9.95.254 | 10.9.95.255 | 10.9.64.1 |
-| Puskesmas dan Sekolah Barat (A6) | 24 | 256 | 90112 | 10.9.96.0 | 255.255.255.0 | /24 | 10.9.96.1 â€“ 10.9.96.254 | 10.9.96.255 | 10.9.96.1 |
-| WiFi Publik Timur (A9) | 19 | 8192 | 98304 | 10.9.128.0 | 255.255.224.0 | /19 | 10.9.128.1 â€“ 10.9.159.254 | 10.9.159.255 | 10.9.128.1 |
-| Sensor Banjir Timur (A10) | 22 | 1024 | 106496 | 10.9.160.0 | 255.255.252.0 | /22 | 10.9.160.1 â€“ 10.9.163.254 | 10.9.163.255 | 10.9.160.1 |
-| WiFi Publik Selatan (A11) | 19 | 8192 | 114688 | 10.9.192.0 | 255.255.224.0 | /19 | 10.9.192.1 â€“ 10.9.223.254 | 10.9.223.255 | 10.9.192.1 |
-| PJU Pintar Selatan (A12) | 25 | 128 | 122880 | 10.9.224.0 | 255.255.255.128 | /25 | 10.9.224.1 â€“ 10.9.224.126 | 10.9.224.127 | 10.9.224.1 |
-| WiFi Publik Utara (A7) | 18 | 16384 | 131072 | 10.10.0.0 | 255.255.192.0 | /18 | 10.10.0.1 â€“ 10.10.63.254 | 10.10.63.255 | 10.10.0.1 |
-| Sensor Lalu Lintas Utara (A8) | 23 | 512 | 147456 | 10.10.64.0 | 255.255.254.0 | /23 | 10.10.64.1 â€“ 10.10.65.254 | 10.10.65.255 | 10.10.64.1 |
-| Sensor dan SCADA Pelabuhan (A13) | 19 | 8192 | 163840 | 10.10.128.0 | 255.255.224.0 | /19 | 10.10.128.1 â€“ 10.10.159.254 | 10.10.159.255 | 10.10.128.1 |
-| Kantor Pelabuhan (A14) | 25 | 128 | 172032 | 10.10.160.0 | 255.255.255.128 | /25 | 10.10.160.1 â€“ 10.10.160.126 | 10.10.160.127 | 10.10.160.1 |
-| Server Internet (A15) | 24 | 256 | â€” | 8.8.8.0 | 255.255.255.0 | /24 | 8.8.8.1 â€“ 8.8.8.254 | 8.8.8.255 | 8.8.8.1 |
-| Link R-PUSAT - R-ISP (A16) | 30 | 4 | â€” | 203.0.113.4 | 255.255.255.252 | /30 | 203.0.113.5 â€“ 203.0.113.6 | 203.0.113.7 | â€” |
-| Tunnel GRE PUSATâ€“PELABUHAN (A23) | 30 | 4 | â€” | 192.168.1.0 | 255.255.255.252 | /30 | 192.168.1.1 â€“ 192.168.1.2 | 192.168.1.3 | â€” |
+| Pegawai Balai Kota (A1) | 21 | 2048 | 0 | 10.8.0.0 | 255.255.248.0 | /21 | 10.8.0.1 – 10.8.7.254 | 10.8.7.255 | 10.8.0.1 |
+| Server Balai Kota (A2) | 27 | 32 | 2048 | 10.8.8.0 | 255.255.255.224 | /27 | 10.8.8.1 – 10.8.8.30 | 10.8.8.31 | 10.8.8.1 |
+| L1 - PUSAT_DC (A17) | 30 | 4 | 4096 | 10.8.16.0 | 255.255.255.252 | /30 | 10.8.16.1 – 10.8.16.2 | 10.8.16.3 | — |
+| L5 - PUSAT_BARAT (A18) | 30 | 4 | 4100 | 10.8.16.4 | 255.255.255.252 | /30 | 10.8.16.5 – 10.8.16.6 | 10.8.16.7 | — |
+| L2 - PUSAT_UTARA (A19) | 30 | 4 | 4104 | 10.8.16.8 | 255.255.255.252 | /30 | 10.8.16.9 – 10.8.16.10 | 10.8.16.11 | — |
+| L4 - PUSAT_TIMUR (A20) | 30 | 4 | 4108 | 10.8.16.12 | 255.255.255.252 | /30 | 10.8.16.13 – 10.8.16.14 | 10.8.16.15 | — |
+| L3 - PUSAT_SELATAN (A21) | 30 | 4 | 4112 | 10.8.16.16 | 255.255.255.252 | /30 | 10.8.16.17 – 10.8.16.18 | 10.8.16.19 | — |
+| L6 - UTARA_PELABUHAN (A22) | 30 | 4 | 4116 | 10.8.16.20 | 255.255.255.252 | /30 | 10.8.16.21 – 10.8.16.22 | 10.8.16.23 | — |
+| CCTV Kota (A3) | 19 | 8192 | 65536 | 10.9.0.0 | 255.255.224.0 | /19 | 10.9.0.1 – 10.9.31.254 | 10.9.31.255 | 10.9.0.1 |
+| Server dan Storage DC (A4) | 24 | 256 | 73728 | 10.9.32.0 | 255.255.255.0 | /24 | 10.9.32.1 – 10.9.32.254 | 10.9.32.255 | 10.9.32.1 |
+| WiFi Publik Barat (A5) | 19 | 8192 | 81920 | 10.9.64.0 | 255.255.224.0 | /19 | 10.9.64.1 – 10.9.95.254 | 10.9.95.255 | 10.9.64.1 |
+| Puskesmas dan Sekolah Barat (A6) | 24 | 256 | 90112 | 10.9.96.0 | 255.255.255.0 | /24 | 10.9.96.1 – 10.9.96.254 | 10.9.96.255 | 10.9.96.1 |
+| WiFi Publik Timur (A9) | 19 | 8192 | 98304 | 10.9.128.0 | 255.255.224.0 | /19 | 10.9.128.1 – 10.9.159.254 | 10.9.159.255 | 10.9.128.1 |
+| Sensor Banjir Timur (A10) | 22 | 1024 | 106496 | 10.9.160.0 | 255.255.252.0 | /22 | 10.9.160.1 – 10.9.163.254 | 10.9.163.255 | 10.9.160.1 |
+| WiFi Publik Selatan (A11) | 19 | 8192 | 114688 | 10.9.192.0 | 255.255.224.0 | /19 | 10.9.192.1 – 10.9.223.254 | 10.9.223.255 | 10.9.192.1 |
+| PJU Pintar Selatan (A12) | 25 | 128 | 122880 | 10.9.224.0 | 255.255.255.128 | /25 | 10.9.224.1 – 10.9.224.126 | 10.9.224.127 | 10.9.224.1 |
+| WiFi Publik Utara (A7) | 18 | 16384 | 131072 | 10.10.0.0 | 255.255.192.0 | /18 | 10.10.0.1 – 10.10.63.254 | 10.10.63.255 | 10.10.0.1 |
+| Sensor Lalu Lintas Utara (A8) | 23 | 512 | 147456 | 10.10.64.0 | 255.255.254.0 | /23 | 10.10.64.1 – 10.10.65.254 | 10.10.65.255 | 10.10.64.1 |
+| Sensor dan SCADA Pelabuhan (A13) | 19 | 8192 | 163840 | 10.10.128.0 | 255.255.224.0 | /19 | 10.10.128.1 – 10.10.159.254 | 10.10.159.255 | 10.10.128.1 |
+| Kantor Pelabuhan (A14) | 25 | 128 | 172032 | 10.10.160.0 | 255.255.255.128 | /25 | 10.10.160.1 – 10.10.160.126 | 10.10.160.127 | 10.10.160.1 |
+| Server Internet (A15) | 24 | 256 | — | 8.8.8.0 | 255.255.255.0 | /24 | 8.8.8.1 – 8.8.8.254 | 8.8.8.255 | 8.8.8.1 |
+| Link R-PUSAT - R-ISP (A16) | 30 | 4 | — | 203.0.113.4 | 255.255.255.252 | /30 | 203.0.113.5 – 203.0.113.6 | 203.0.113.7 | — |
+| Tunnel GRE PUSAT–PELABUHAN (A23) | 30 | 4 | — | 192.168.1.0 | 255.255.255.252 | /30 | 192.168.1.1 – 192.168.1.2 | 192.168.1.3 | — |
 
 
 ### 3 - Static Routing
@@ -276,18 +276,18 @@ Konfigurasi berikut adalah static routing sebelum migrasi OSPF pada soal 7.
 
 | Link | Subnet aktif CPT | Alamat interface router |
 | :--- | :--- | :--- |
-| WAN R-ISPâ€“R-PUSAT | `203.0.113.4/30` | R-ISP `203.0.113.5`, R-PUSAT `203.0.113.6` |
-| L1 PUSATâ€“DC | `10.8.241.36/30` | R-PUSAT `10.8.241.37`, R-DC `10.8.241.38` |
-| L5 PUSATâ€“BARAT | `10.8.241.40/30` | R-PUSAT `10.8.241.41`, R-BARAT `10.8.241.42` |
-| L2 PUSATâ€“UTARA | `10.8.241.44/30` | R-PUSAT `10.8.241.45`, R-UTARA `10.8.241.46` |
-| L4 PUSATâ€“TIMUR | `10.8.241.48/30` | R-PUSAT `10.8.241.49`, R-TIMUR `10.8.241.50` |
-| L3 PUSATâ€“SELATAN | `10.8.241.52/30` | R-PUSAT `10.8.241.53`, R-SELATAN `10.8.241.54` |
-| L6 UTARAâ€“PELABUHAN | `10.8.241.56/30` | R-UTARA `10.8.241.57`, R-PELABUHAN `10.8.241.58` |
-| L7 DCâ€“UTARA (cadangan) | `10.8.241.60/30` | R-DC `10.8.241.61`, R-UTARA `10.8.241.62` |
-| L8 PELABUHANâ€“TIMUR | `10.8.241.64/30` | R-PELABUHAN `10.8.241.65`, R-TIMUR `10.8.241.66` |
-| L9 TIMURâ€“SELATAN | `10.8.241.68/30` | R-TIMUR `10.8.241.69`, R-SELATAN `10.8.241.70` |
-| L10 SELATANâ€“BARAT | `10.8.241.72/30` | R-SELATAN `10.8.241.73`, R-BARAT `10.8.241.74` |
-| L11 BARATâ€“DC | `10.8.241.76/30` | R-BARAT `10.8.241.77`, R-DC `10.8.241.78` |
+| WAN R-ISP–R-PUSAT | `203.0.113.4/30` | R-ISP `203.0.113.5`, R-PUSAT `203.0.113.6` |
+| L1 PUSAT–DC | `10.8.241.36/30` | R-PUSAT `10.8.241.37`, R-DC `10.8.241.38` |
+| L5 PUSAT–BARAT | `10.8.241.40/30` | R-PUSAT `10.8.241.41`, R-BARAT `10.8.241.42` |
+| L2 PUSAT–UTARA | `10.8.241.44/30` | R-PUSAT `10.8.241.45`, R-UTARA `10.8.241.46` |
+| L4 PUSAT–TIMUR | `10.8.241.48/30` | R-PUSAT `10.8.241.49`, R-TIMUR `10.8.241.50` |
+| L3 PUSAT–SELATAN | `10.8.241.52/30` | R-PUSAT `10.8.241.53`, R-SELATAN `10.8.241.54` |
+| L6 UTARA–PELABUHAN | `10.8.241.56/30` | R-UTARA `10.8.241.57`, R-PELABUHAN `10.8.241.58` |
+| L7 DC–UTARA (cadangan) | `10.8.241.60/30` | R-DC `10.8.241.61`, R-UTARA `10.8.241.62` |
+| L8 PELABUHAN–TIMUR | `10.8.241.64/30` | R-PELABUHAN `10.8.241.65`, R-TIMUR `10.8.241.66` |
+| L9 TIMUR–SELATAN | `10.8.241.68/30` | R-TIMUR `10.8.241.69`, R-SELATAN `10.8.241.70` |
+| L10 SELATAN–BARAT | `10.8.241.72/30` | R-SELATAN `10.8.241.73`, R-BARAT `10.8.241.74` |
+| L11 BARAT–DC | `10.8.241.76/30` | R-BARAT `10.8.241.77`, R-DC `10.8.241.78` |
 
 Gateway LAN memakai alamat pertama subnet: R-PUSAT `10.8.224.1` dan `10.8.241.1`; R-DC `10.8.96.1`, `10.8.239.1`; R-BARAT `10.8.192.1`, `10.8.238.1`; R-UTARA `10.8.0.1`, `10.8.236.1`; R-TIMUR `10.8.128.1`, `10.8.232.1`; R-SELATAN `10.8.64.1`, `10.8.240.129`; R-PELABUHAN `10.8.160.1`, `10.8.240.1`.
 
@@ -401,9 +401,11 @@ Default route tiap perangkat cabang adalah route statis dengan prefix `/0` dan d
 
 ##### Static route R-PUSAT ke LAN cabang
 
-![Tabel routing R-PUSAT; output terpotong pada --More--](assets/image-1.png)
+![Tabel routing R-PUSAT dengan static route ke LAN cabang dan default route ke R-ISP](assets/rute-static-r-pusat.png)
 
-Gambar di atas, pada tahap soal 3, menampilkan `show ip route` pada R-PUSAT dengan static route `S` ke LAN cabang: `10.8.0.0/18` dan `10.8.236.0/23` via `10.8.241.46`, `10.8.64.0/19` via `10.8.241.54`, `10.8.96.0/19` dan `10.8.239.0/24` via `10.8.241.38`, `10.8.128.0/19` dan `10.8.232.0/22` via `10.8.241.50`, `10.8.160.0/19` via `10.8.241.46`, serta `10.8.192.0/19` dan `10.8.238.0/24` via `10.8.241.42`. Output berhenti pada `--More--`, sehingga route `10.8.240.0/25`, `10.8.240.128/25`, dan default route belum terlihat. Default route R-PUSAT tidak tampil pada gambar di atas; bukti tidak langsungnya ada pada ping internet PC-WIFI-UTARA di bagian bukti tambahan, yang melewati R-PUSAT menuju R-ISP.
+Tabel ini menunjukkan routing pada tahap soal 3. R-PUSAT memiliki static route ke setiap LAN cabang yang tidak terhubung langsung. LAN Utara (`10.8.0.0/18` dan `10.8.236.0/23`) serta LAN Pelabuhan (`10.8.160.0/19`) diarahkan melalui R-UTARA `10.8.241.46`; LAN Selatan (`10.8.64.0/19`) melalui R-SELATAN `10.8.241.54`; LAN DC (`10.8.96.0/19` dan `10.8.239.0/24`) melalui R-DC `10.8.241.38`; LAN Timur (`10.8.128.0/19` dan `10.8.232.0/22`) melalui R-TIMUR `10.8.241.50`; serta LAN Barat (`10.8.192.0/19` dan `10.8.238.0/24`) melalui R-BARAT `10.8.241.42`. LAN Kantor Pelabuhan (`10.8.240.0/25`) menggunakan R-PELABUHAN `192.168.1.2` melalui Tunnel0. LAN Pegawai Balai Kota (`10.8.224.0/21`) dan Server Balai Kota (`10.8.241.0/27`) terhubung langsung ke R-PUSAT, sehingga ditandai `C`, bukan static route.
+
+Default route `S* 0.0.0.0/0` mengarah ke R-ISP `203.0.113.5` untuk tujuan yang tidak tercakup oleh route yang lebih spesifik. Screenshot ini menampilkan seluruh tabel routing, termasuk route ke `10.8.241.58/32` melalui R-UTARA untuk endpoint underlay GRE R-PELABUHAN. Route internal pada tahap ini adalah konfigurasi static routing soal 3; pada tahap soal 7, route internal digantikan OSPF.
 
 ##### Static route R-UTARA ke LAN Pelabuhan dan default route
 
@@ -427,15 +429,15 @@ Gambar di atas menunjukkan R-PELABUHAN memiliki connected route `10.8.160.0/19`,
 
 Gambar di atas menunjukkan PC-CCTV-KOTA (`10.8.96.2`) mendapat `4/4` balasan dari PC-WIFI-BARAT (`10.8.192.2`). Hasil ini membuktikan static route R-PUSAT menuju LAN Barat dan route balik R-BARAT berfungsi.
 
-##### Ping dua arah Balai Kotaâ€“Pelabuhan
+##### Ping dua arah Balai Kota–Pelabuhan
 
 ![Ping PC-PEGAWAI-BK ke 10.8.160.2 berhasil tanpa packet loss](assets/image-7.png)
 
-Gambar di atas menunjukkan PC-PEGAWAI-BK (`10.8.224.2`) mendapat `4/4` balasan dari PC-SCADA-PELABUHAN (`10.8.160.2`). Pada tahap static routing, trafik melewati R-PUSATâ€“R-UTARAâ€“R-PELABUHAN.
+Gambar di atas menunjukkan PC-PEGAWAI-BK (`10.8.224.2`) mendapat `4/4` balasan dari PC-SCADA-PELABUHAN (`10.8.160.2`). Pada tahap static routing, trafik melewati R-PUSAT–R-UTARA–R-PELABUHAN.
 
 ![Ping PC-SCADA-PELABUHAN ke 10.8.224.2 berhasil tanpa packet loss](assets/image-8.png)
 
-Gambar di atas menunjukkan arah balik dari PC-SCADA-PELABUHAN (`10.8.160.2`) ke PC-PEGAWAI-BK (`10.8.224.2`) juga mendapat `4/4` balasan. Setelah GRE aktif, jalur Balai Kotaâ€“Pelabuhan melewati `Tunnel0`, seperti terlihat pada verifikasi soal 6.
+Gambar di atas menunjukkan arah balik dari PC-SCADA-PELABUHAN (`10.8.160.2`) ke PC-PEGAWAI-BK (`10.8.224.2`) juga mendapat `4/4` balasan. Setelah GRE aktif, jalur Balai Kota–Pelabuhan melewati `Tunnel0`, seperti terlihat pada verifikasi soal 6.
 
 ##### Bukti tambahan akses internet
 
@@ -865,7 +867,7 @@ Gambar di atas menunjukkan R-PUSAT mendapat `5/5` balasan dari `10.8.241.58`, ya
 
 ![Route R-PELABUHAN dan ping ke 10.8.241.37 dengan 5/5 balasan](assets/image-31.png)
 
-Gambar di atas menunjukkan R-PELABUHAN mendapat `5/5` balasan dari `10.8.241.37` (R-PUSAT). Tabel routing juga memperlihatkan `192.168.1.0/30` terhubung ke `Tunnel0` dan default route via `10.8.241.57`. Jalur fisik dari R-PELABUHAN menuju R-PUSAT dapat dijangkau; ping tunnel berikutnya menguji pasangan endpoint `10.8.241.45`â€“`10.8.241.58`.
+Gambar di atas menunjukkan R-PELABUHAN mendapat `5/5` balasan dari `10.8.241.37` (R-PUSAT). Tabel routing juga memperlihatkan `192.168.1.0/30` terhubung ke `Tunnel0` dan default route via `10.8.241.57`. Jalur fisik dari R-PELABUHAN menuju R-PUSAT dapat dijangkau; ping tunnel berikutnya menguji pasangan endpoint `10.8.241.45`–`10.8.241.58`.
 
 ##### Ping tunnel dua arah
 
@@ -877,11 +879,11 @@ Gambar di atas menunjukkan R-PUSAT mendapat `5/5` balasan dari alamat tunnel R-P
 
 Gambar di atas menunjukkan R-PELABUHAN mendapat `5/5` balasan dari alamat tunnel R-PUSAT `192.168.1.1`. Kedua ping melalui `Tunnel0`; pada pengujian CLI, counter input `Tunnel0` ikut bertambah. Status `up/up` saja tidak membuktikan bahwa paket GRE benar-benar lewat.
 
-##### Komunikasi host Balai Kotaâ€“Pelabuhan
+##### Komunikasi host Balai Kota–Pelabuhan
 
 ![Ping dan tracert PC-PEGAWAI-BK ke 10.8.160.2](assets/image-37.png)
 
-Gambar di atas menunjukkan PC-PEGAWAI-BK (`10.8.224.2`) mendapat `4/4` balasan dari PC-SCADA-PELABUHAN (`10.8.160.2`). `tracert` melewati `10.8.224.1` â†’ `192.168.1.2` â†’ `10.8.160.2`.
+Gambar di atas menunjukkan PC-PEGAWAI-BK (`10.8.224.2`) mendapat `4/4` balasan dari PC-SCADA-PELABUHAN (`10.8.160.2`). `tracert` melewati `10.8.224.1` → `192.168.1.2` → `10.8.160.2`.
 
 ![Ping dan tracert PC-SCADA-PELABUHAN ke 10.8.224.2](assets/image-38.png)
 
@@ -889,7 +891,7 @@ Gambar di atas menunjukkan arah balik dari PC-SCADA-PELABUHAN (`10.8.160.2`) ke 
 
 #### Bonus IPsec over GRE
 
-IPsec diterapkan untuk mengenkripsi paket GRE antara R-PUSAT `10.8.241.45` dan R-PELABUHAN `10.8.241.58`. Pada Packet Tracer 9.0.1, `crypto ipsec profile` dan `tunnel protection ipsec profile` tidak tersedia, sehingga IPsec dipasang lewat **crypto map** pada interface fisik underlay dengan ACL yang mencocokkan protokol GRE (`gre`, protokol 47). Paket GRE yang membawa trafik Balai Kotaâ€“Pelabuhan dienkapsulasi lagi ke dalam ESP.
+IPsec diterapkan untuk mengenkripsi paket GRE antara R-PUSAT `10.8.241.45` dan R-PELABUHAN `10.8.241.58`. Pada Packet Tracer 9.0.1, `crypto ipsec profile` dan `tunnel protection ipsec profile` tidak tersedia, sehingga IPsec dipasang lewat **crypto map** pada interface fisik underlay dengan ACL yang mencocokkan protokol GRE (`gre`, protokol 47). Paket GRE yang membawa trafik Balai Kota–Pelabuhan dienkapsulasi lagi ke dalam ESP.
 
 Konfigurasi R-PUSAT:
 
@@ -950,36 +952,36 @@ Gambar di atas menunjukkan output R-PUSAT: `show crypto isakmp sa` berstatus `QM
 #### Deskripsi
 
 * Tambahkan link cadangan L7 antara R-DC dan R-UTARA menggunakan subnet yang belum terpakai.
-* Tambahkan L8â€“L11 agar setiap link backbone memiliki jalur alternatif saat satu link putus.
+* Tambahkan L8–L11 agar setiap link backbone memiliki jalur alternatif saat satu link putus.
 * Ganti static route antar-router dengan OSPF; jangan kirim hello OSPF ke arah LAN pengguna.
 * Konfigurasikan default route internet hanya di R-PUSAT dan sebarkan otomatis kepada router lain melalui OSPF.
 * Pulihkan konektivitas otomatis melalui jalur lain ketika satu link backbone putus.
 
 #### Penyelesaian
 
-Soal ini menambahkan link cadangan L7 antara R-DC dan R-UTARA dan mengganti static route internal dengan OSPF process 1, Area 0. Alamat L7 mengikuti topologi CPT yang aktif: `10.8.241.60/30`, dengan R-DC `10.8.241.61` dan R-UTARA `10.8.241.62`. Blok `10.8.241.56/30` sudah dipakai link L6 R-UTARAâ€“R-PELABUHAN. Agar link L3â€“L6 juga memiliki jalur alternatif, ditambahkan L8â€“L11 yang menghubungkan cabang-cabang dalam ring.
+Soal ini menambahkan link cadangan L7 antara R-DC dan R-UTARA dan mengganti static route internal dengan OSPF process 1, Area 0. Alamat L7 mengikuti topologi CPT yang aktif: `10.8.241.60/30`, dengan R-DC `10.8.241.61` dan R-UTARA `10.8.241.62`. Blok `10.8.241.56/30` sudah dipakai link L6 R-UTARA–R-PELABUHAN. Agar link L3–L6 juga memiliki jalur alternatif, ditambahkan L8–L11 yang menghubungkan cabang-cabang dalam ring.
 
-Port router tambahan menggunakan modul `HWIC-1GE-SFP` pada slot `0/0` dan, untuk router yang memerlukan dua port, slot `0/1`. Semua link baru memakai kabel fiber dan mask `255.255.255.252`. Interface L8â€“L11 menggunakan OSPF cost `100`, sehingga jalur ring berfungsi sebagai cadangan dan tidak mengalahkan path lama pada kondisi normal.
+Port router tambahan menggunakan modul `HWIC-1GE-SFP` pada slot `0/0` dan, untuk router yang memerlukan dua port, slot `0/1`. Semua link baru memakai kabel fiber dan mask `255.255.255.252`. Interface L8–L11 menggunakan OSPF cost `100`, sehingga jalur ring berfungsi sebagai cadangan dan tidak mengalahkan path lama pada kondisi normal.
 
 | Link | Interface pertama | Interface kedua | Prefix |
 | :--- | :--- | :--- | :--- |
-| L7 DCâ€“UTARA | R-DC `GigabitEthernet0/0/0` - `10.8.241.61` | R-UTARA `GigabitEthernet0/0/0` - `10.8.241.62` | `10.8.241.60/30` |
-| L8 PELABUHANâ€“TIMUR | R-PELABUHAN `GigabitEthernet0/0/0` - `10.8.241.65` | R-TIMUR `GigabitEthernet0/0/0` - `10.8.241.66` | `10.8.241.64/30` |
-| L9 TIMURâ€“SELATAN | R-TIMUR `GigabitEthernet0/1/0` - `10.8.241.69` | R-SELATAN `GigabitEthernet0/0/0` - `10.8.241.70` | `10.8.241.68/30` |
-| L10 SELATANâ€“BARAT | R-SELATAN `GigabitEthernet0/1/0` - `10.8.241.73` | R-BARAT `GigabitEthernet0/0/0` - `10.8.241.74` | `10.8.241.72/30` |
-| L11 BARATâ€“DC | R-BARAT `GigabitEthernet0/1/0` - `10.8.241.77` | R-DC `GigabitEthernet0/1/0` - `10.8.241.78` | `10.8.241.76/30` |
+| L7 DC–UTARA | R-DC `GigabitEthernet0/0/0` - `10.8.241.61` | R-UTARA `GigabitEthernet0/0/0` - `10.8.241.62` | `10.8.241.60/30` |
+| L8 PELABUHAN–TIMUR | R-PELABUHAN `GigabitEthernet0/0/0` - `10.8.241.65` | R-TIMUR `GigabitEthernet0/0/0` - `10.8.241.66` | `10.8.241.64/30` |
+| L9 TIMUR–SELATAN | R-TIMUR `GigabitEthernet0/1/0` - `10.8.241.69` | R-SELATAN `GigabitEthernet0/0/0` - `10.8.241.70` | `10.8.241.68/30` |
+| L10 SELATAN–BARAT | R-SELATAN `GigabitEthernet0/1/0` - `10.8.241.73` | R-BARAT `GigabitEthernet0/0/0` - `10.8.241.74` | `10.8.241.72/30` |
+| L11 BARAT–DC | R-BARAT `GigabitEthernet0/1/0` - `10.8.241.77` | R-DC `GigabitEthernet0/1/0` - `10.8.241.78` | `10.8.241.76/30` |
 
-![Topologi Packet Tracer setelah penambahan link redundan L7â€“L11](assets/image-40.png)
+![Topologi Packet Tracer setelah penambahan link redundan L7–L11](assets/image-40.png)
 
-Garis merah pada gambar menunjukkan link fiber redundan L7â€“L11; L8â€“L11 melengkapi jalur alternatif bagi cabang lain.
+Garis merah pada gambar menunjukkan link fiber redundan L7–L11; L8–L11 melengkapi jalur alternatif bagi cabang lain.
 
 OSPF memakai `passive-interface default`; hanya interface backbone router-ke-router dibuka dengan `no passive-interface`. Dengan demikian subnet LAN tetap diiklankan ke OSPF, tetapi router tidak mengirim hello OSPF ke PC, AP, switch LAN, atau server. R-PUSAT satu-satunya router dengan default route statis ke R-ISP dan mengiklankannya menggunakan `default-information originate`. R-ISP tidak menjalankan OSPF.
 
-Subnet underlay yang memuat endpoint GRE/IPsec diiklankan melalui OSPF, sehingga kedua peer tetap dapat dijangkau tanpa static route host tambahan. Default route internet adalah satu-satunya static route yang tersisa di router internal, yaitu pada R-PUSAT. Traffic LAN Balai Kotaâ€“Pelabuhan pada tahap ini mengikuti jalur OSPF fisik, bukan static route Tunnel0 dari tahap soal 6.
+Subnet underlay yang memuat endpoint GRE/IPsec diiklankan melalui OSPF, sehingga kedua peer tetap dapat dijangkau tanpa static route host tambahan. Default route internet adalah satu-satunya static route yang tersisa di router internal, yaitu pada R-PUSAT. Traffic LAN Balai Kota–Pelabuhan pada tahap ini mengikuti jalur OSPF fisik, bukan static route Tunnel0 dari tahap soal 6.
 
 ##### Interface link baru
 
-Konfigurasi alamat interface L7â€“L11 (semua interface `no shutdown`):
+Konfigurasi alamat interface L7–L11 (semua interface `no shutdown`):
 
 | Router | Interface | Alamat |
 | :--- | :--- | :--- |
@@ -1124,26 +1126,26 @@ Sebelum migrasi, hapus static route antar-router dan default route cabang dengan
 
 Pada keadaan normal, neighbor OSPF mencapai `FULL` pada link backbone. Tabel routing R-DC, R-UTARA, R-PELABUHAN, R-BARAT, R-TIMUR, dan R-SELATAN memuat route `O` ke LAN lain dan `O*E2 0.0.0.0/0` yang berasal dari R-PUSAT. Interface LAN tetap passive; adjacency hanya terbentuk melalui backbone.
 
-##### Failover saat L1 R-PUSATâ€“R-DC putus
+##### Failover saat L1 R-PUSAT–R-DC putus
 
 Pengujian dilakukan dengan `shutdown` sementara pada `FastEthernet1/1` R-PUSAT. Setelah OSPF reconverge, R-DC memilih next-hop L7 `10.8.241.62` untuk menuju jaringan R-PUSAT dan default route. Ping R-DC ke `10.8.224.2` berhasil `5/5`, dan PC-CCTV-KOTA tetap mendapat `4/4` balasan dari `8.8.8.8`. L1 kemudian diaktifkan kembali.
 
-##### Failover saat L2 R-PUSATâ€“R-UTARA putus
+##### Failover saat L2 R-PUSAT–R-UTARA putus
 
 Pengujian dilakukan dengan `shutdown` sementara pada `Ethernet0/1/0` R-PUSAT. Setelah OSPF reconverge, R-UTARA memilih next-hop L7 R-DC `10.8.241.61` untuk menuju R-PUSAT. Ping R-UTARA ke `10.8.224.2` berhasil `5/5`, dan PC-WIFI-UTARA mendapat `4/4` balasan dari `8.8.8.8`. L2 kemudian diaktifkan kembali.
 
-##### Failover link L3â€“L6
+##### Failover link L3–L6
 
 Setiap link diuji satu per satu dengan `shutdown` sementara, lalu diaktifkan kembali sebelum pengujian berikutnya. Setelah OSPF reconverge, router yang terdampak tetap memiliki default route dari R-PUSAT dan ping ke `10.8.224.2` berhasil `5/5`:
 
 | Link putus | Router terdampak | Next-hop alternatif yang teramati |
 | :--- | :--- | :--- |
-| L3 PUSATâ€“SELATAN | R-SELATAN | R-TIMUR `10.8.241.69` atau R-BARAT `10.8.241.74` |
-| L4 PUSATâ€“TIMUR | R-TIMUR | R-PELABUHAN `10.8.241.65` atau R-SELATAN `10.8.241.70` |
-| L5 PUSATâ€“BARAT | R-BARAT | R-SELATAN `10.8.241.73` atau R-DC `10.8.241.78` |
-| L6 UTARAâ€“PELABUHAN | R-PELABUHAN | R-TIMUR `10.8.241.66` |
+| L3 PUSAT–SELATAN | R-SELATAN | R-TIMUR `10.8.241.69` atau R-BARAT `10.8.241.74` |
+| L4 PUSAT–TIMUR | R-TIMUR | R-PELABUHAN `10.8.241.65` atau R-SELATAN `10.8.241.70` |
+| L5 PUSAT–BARAT | R-BARAT | R-SELATAN `10.8.241.73` atau R-DC `10.8.241.78` |
+| L6 UTARA–PELABUHAN | R-PELABUHAN | R-TIMUR `10.8.241.66` |
 
-Ring L7â€“L11 menyediakan alternatif untuk kegagalan satu link backbone. Jalur R-PUSAT ke R-ISP tetap tunggal; jika WAN internet itu putus, link internal tidak dapat menggantikan koneksi ISP.
+Ring L7–L11 menyediakan alternatif untuk kegagalan satu link backbone. Jalur R-PUSAT ke R-ISP tetap tunggal; jika WAN internet itu putus, link internal tidak dapat menggantikan koneksi ISP.
 
 Catatan pengujian akhir OSPF: ping LAN lintas jaringan dan akses internet dari Pelabuhan berhasil. Ping R-PUSAT ke endpoint underlay R-PELABUHAN `10.8.241.58` dan ping Tunnel0 `192.168.1.2` gagal (`0/5`); SA IPsec aktif hanya terlihat pada R-PUSAT dan belum terbentuk pada R-PELABUHAN. GRE/IPsec tetap memerlukan pemulihan sebelum dapat dipakai sebagai jalur layanan.
 
