@@ -692,11 +692,14 @@ Gambar di atas menunjukkan PC-PEGAWAI-BK (`10.8.224.2`) mendapat `4/4` balasan d
 
 
 
-### 5 - NAT (PAT Overload)
+### 5 - NAT
+
+#### Deskripsi
+Seluruh host dapat mengakses server 8.8.8.8 menggunakan satu IP publik milik R-PUSAT. R-ISP tidak boleh memiliki rute ke alamat privat internal.
 
 #### Penyelesaian
 
-Seluruh subnet privat `10.8.0.0/16` diterjemahkan oleh R-PUSAT ke satu alamat publik, yaitu `203.0.113.6` pada interface yang mengarah ke R-ISP. Mekanisme yang digunakan adalah PAT/NAT overload, sehingga beberapa host dapat berbagi satu alamat publik dengan nomor port berbeda. R-ISP tidak menyimpan rute ke jaringan privat internal; R-ISP hanya mengetahui dua jaringan yang terhubung langsung, `203.0.113.4/30` dan `8.8.8.0/24`.
+R-PUSAT menggunakan PAT untuk menerjemahkan alamat privat `10.8.0.0/16` menjadi alamat interface WAN `203.0.113.6`. Alamat tersebut berada dalam subnet point-to-point `203.0.113.4/30` yang menghubungkan R-PUSAT dengan R-ISP. Pada subnet itu, `203.0.113.4` adalah network address dan `203.0.113.7` adalah broadcast address, sehingga keduanya tidak dapat dipakai sebagai alamat interface. R-ISP memakai `203.0.113.5`, sedangkan R-PUSAT memakai `203.0.113.6`. PAT memungkinkan banyak host internal berbagi alamat WAN R-PUSAT dengan nomor port yang berbeda. R-ISP tidak menyimpan route menuju subnet privat, karena R-ISP hanya mengetahui jaringan yang terhubung langsung `203.0.113.4/30` dan `8.8.8.0/24`.
 
 ##### Konfigurasi R-PUSAT
 
@@ -797,6 +800,12 @@ Gambar di atas menunjukkan tabel routing R-ISP hanya berisi connected `8.8.8.0/2
 
 
 ### 6 - GRE Tunnel R-PUSAT ke R-PELABUHAN
+
+#### Deskripsi
+Bangun tunnel GRE antara R-PUSAT dan R-PELABUHAN.
+Lalu lintas antara subnet Balai Kota dan subnet Pelabuhan harus melewati tunnel.
+Jelaskan dalam dokumentasi mengapa router memilih jalur tunnel dibandingkan jalur lain ke pelabuhan, dan mengapa GRE saja tidak mengenkripsi data.
+Bonus (+5): Buat lalu lintas di dalam tunnel terenkripsi dengan IPsec.
 
 #### Penyelesaian
 
@@ -1151,6 +1160,13 @@ Catatan pengujian akhir OSPF: ping LAN lintas jaringan dan akses internet dari P
 
 ### 8 - Layanan Aplikasi Smart City
 
+#### Deskripsi
+Gunakan domain internal `k<nomor kelompok>.smartcity.lab.`
+* **a.** DNS di LAN Server dan Storage DC. Nama www, ftp, dan mail dapat diakses dari seluruh wilayah.
+* **b.** Web di LAN Server Balai Kota, berupa halaman "Portal Smart City Surabaya" yang mencantumkan nomor kelompok dan dapat dibuka dengan nama domain dari semua wilayah.
+* **c.** FTP di LAN Server dan Storage DC sebagai penyimpanan rekaman CCTV, dengan akun login. Perangkat di LAN CCTV Kota dapat mengunggah file ke sana.
+* **d.** Email antarpegawai. Pengguna di Balai Kota dan Pelabuhan dapat saling mengirim dan menerima email.
+
 #### Domain dan pemetaan server
 
 Domain internal yang digunakan adalah `k1.smartcity.lab` (Kelompok 1). Alamat statis server sudah sesuai dengan LAN aktif Packet Tracer:
@@ -1202,5 +1218,7 @@ SMTP dan POP3 aktif pada SVR-DC dengan domain `k1.smartcity.lab`. Akun server:
 ![alt text](assets/image-47.png)
 
 ![alt text](assets/image-48.png)
+
+Gambar di atas menunjukan bahwa email benrhasil dikirim dan diterima.
 
 
